@@ -7,86 +7,53 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Noto Sans KR', sans-serif; background: #f4f6f9; color: #222; min-height: 100vh; }
-  
-  /* Header */
   header { background: #003087; color: white; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; }
   header h1 { font-size: 1.3rem; font-weight: 700; }
   header span { font-size: 0.85rem; opacity: 0.8; }
-  
-  /* Navigation */
   nav { background: #fff; border-bottom: 2px solid #003087; display: flex; overflow-x: auto; }
   nav button { padding: 0.9rem 1.4rem; border: none; background: none; cursor: pointer; font-size: 0.9rem; color: #555; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
   nav button:hover { background: #f0f4ff; color: #003087; }
   nav button.active { color: #003087; font-weight: 700; border-bottom: 3px solid #003087; background: #f0f4ff; }
-  
-  /* Main content */
   main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-  
-  /* Section */
   .section { display: none; }
   .section.active { display: block; }
-  
-  /* Cards */
   .card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e8eaf0; }
   .card h2 { font-size: 1.15rem; color: #003087; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid #e8eaf0; }
-  .card h3 { font-size: 1rem; color: #222; margin-bottom: 0.5rem; }
-  
-  /* Course grid */
   .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
   .course-card { background: #f0f4ff; border: 2px solid #d0d8f0; border-radius: 10px; padding: 1.2rem; text-align: center; cursor: pointer; transition: all 0.2s; }
-  .course-card:hover { background: #003087; color: white; border-color: #003087; }
-  .course-card:hover .course-icon, .course-card:hover p { color: white; }
-  .course-card.selected { background: #003087; color: white; border-color: #003087; }
+  .course-card:hover, .course-card.selected { background: #003087; color: white; border-color: #003087; }
+  .course-card:hover .course-icon, .course-card:hover p,
   .course-card.selected .course-icon, .course-card.selected p { color: white; }
   .course-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
   .course-card p { font-size: 0.82rem; color: #555; margin-top: 0.3rem; }
-  
-  /* Buttons */
   .btn { display: inline-block; padding: 0.7rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
   .btn-primary { background: #003087; color: white; }
   .btn-primary:hover { background: #001f5c; }
   .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
   .btn-secondary { background: #e8eaf0; color: #333; }
   .btn-secondary:hover { background: #d0d4e0; }
-  .btn-success { background: #0a7c42; color: white; }
-  .btn-success:hover { background: #085c32; }
-  
-  /* Video container */
   .video-container { background: #000; border-radius: 10px; overflow: hidden; margin: 1rem 0; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
-  .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; }
+  .video-container iframe { width: 100%; height: 100%; border: none; }
   .video-placeholder { color: #888; text-align: center; padding: 2rem; }
-  .video-placeholder p { margin-top: 0.5rem; font-size: 0.85rem; }
-  
-  /* Quiz */
   .quiz-question { margin-bottom: 1.5rem; padding: 1.2rem; background: #f8f9ff; border-radius: 8px; border-left: 4px solid #003087; }
   .quiz-question p { font-weight: 600; margin-bottom: 0.8rem; line-height: 1.5; }
   .quiz-option { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.7rem; border-radius: 6px; cursor: pointer; margin-bottom: 0.3rem; transition: background 0.15s; }
   .quiz-option:hover { background: #e8eaf0; }
   .quiz-option input { cursor: pointer; accent-color: #003087; }
   .quiz-option label { cursor: pointer; font-size: 0.93rem; }
-  .quiz-result { padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.88rem; margin-top: 0.5rem; display: none; }
-  .quiz-result.correct { background: #d4f0e0; color: #0a5c2e; }
-  .quiz-result.incorrect { background: #fde8e8; color: #8b1a1a; }
-  
-  /* Progress bar */
   .progress-bar { background: #e8eaf0; border-radius: 99px; height: 8px; margin: 0.5rem 0 1rem; overflow: hidden; }
   .progress-fill { height: 100%; background: #003087; border-radius: 99px; transition: width 0.4s; }
-  
-  /* Score card */
   .score-card { text-align: center; padding: 2rem; }
   .score-big { font-size: 3.5rem; font-weight: 800; color: #003087; }
   .score-label { font-size: 1rem; color: #555; margin-top: 0.3rem; }
   .score-pass { color: #0a7c42; font-size: 1.1rem; font-weight: 700; margin-top: 1rem; }
   .score-fail { color: #c0392b; font-size: 1.1rem; font-weight: 700; margin-top: 1rem; }
-  
-  /* Certificate */
-  .certificate { border: 4px double #003087; border-radius: 12px; padding: 2rem; text-align: center; background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%); margin: 1rem 0; }
+  .certificate { border: 4px double #003087; border-radius: 12px; padding: 2rem; text-align: center; background: #fff; margin: 1rem 0; }
   .certificate h2 { color: #003087; font-size: 1.6rem; margin-bottom: 0.5rem; }
-  .certificate .cert-name { font-size: 1.8rem; font-weight: 700; color: #222; border-bottom: 2px solid #003087; display: inline-block; padding: 0.3rem 1.5rem; margin: 1rem 0; }
+  .certificate .cert-name { font-size: 1.8rem; font-weight: 700; color: #222; border-bottom: 2px solid #003087; display: inline-block; padding: 0.3rem 1.5rem; margin: 0.5rem 0; }
+  .certificate .cert-unit { font-size: 1.1rem; color: #555; margin-bottom: 0.5rem; }
   .certificate p { color: #555; font-size: 0.95rem; line-height: 1.8; }
   .cert-badge { font-size: 3rem; margin: 0.5rem 0; }
-  
-  /* Stats */
   .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
   .stat-box { background: #f0f4ff; border-radius: 10px; padding: 1.2rem; text-align: center; border: 1px solid #d0d8f0; }
   .stat-num { font-size: 2rem; font-weight: 800; color: #003087; }
@@ -95,24 +62,16 @@
   .stat-table th { background: #003087; color: white; padding: 0.7rem 1rem; font-size: 0.88rem; text-align: left; }
   .stat-table td { padding: 0.65rem 1rem; font-size: 0.9rem; border-bottom: 1px solid #e8eaf0; }
   .stat-table tr:nth-child(even) td { background: #f8f9ff; }
-  .stat-table tr:hover td { background: #e8f0ff; }
-  
-  /* Admin panel */
-  .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .input-group { margin-bottom: 1rem; }
   .input-group label { display: block; font-size: 0.88rem; color: #444; margin-bottom: 0.4rem; font-weight: 600; }
-  .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid #d0d4e0; border-radius: 7px; font-size: 0.9rem; transition: border-color 0.2s; }
-  .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: #003087; }
-  .input-group textarea { height: 80px; resize: vertical; }
-  
-  /* Badge */
+  .input-group input, .input-group select { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid #d0d4e0; border-radius: 7px; font-size: 0.95rem; transition: border-color 0.2s; }
+  .input-group input:focus, .input-group select:focus { outline: none; border-color: #003087; }
   .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.75rem; font-weight: 600; }
-  .badge-blue { background: #dbeafe; color: #1e40af; }
   .badge-green { background: #d1fae5; color: #065f46; }
+  .badge-red { background: #fde8e8; color: #8b1a1a; }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
   .badge-orange { background: #ffedd5; color: #9a3412; }
   .badge-purple { background: #ede9fe; color: #5b21b6; }
-  
-  /* Steps indicator */
   .steps { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
   .step { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #aaa; }
   .step.done { color: #0a7c42; }
@@ -122,15 +81,19 @@
   .step.active .step-dot { background: #003087; color: white; }
   .step-line { flex: 1; height: 2px; background: #e8eaf0; min-width: 20px; }
   .step-line.done { background: #0a7c42; }
-  
   .alert { padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.9rem; margin-bottom: 1rem; }
   .alert-info { background: #dbeafe; color: #1e3a5f; border-left: 3px solid #3b82f6; }
   .alert-success { background: #d1fae5; color: #064e3b; border-left: 3px solid #10b981; }
-  
+  .alert-warning { background: #fff7ed; color: #7c2d12; border-left: 3px solid #f97316; }
+  .sending-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .sending-box { background: white; border-radius: 16px; padding: 2.5rem 3rem; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+  .spinner { width: 48px; height: 48px; border: 5px solid #e8eaf0; border-top-color: #003087; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   @media (max-width: 600px) {
     header { padding: 0.8rem 1rem; }
     header h1 { font-size: 1rem; }
-    .admin-grid { grid-template-columns: 1fr; }
+    .input-row { grid-template-columns: 1fr; }
     .score-big { font-size: 2.5rem; }
   }
   @media print {
@@ -150,10 +113,10 @@
 </header>
 
 <nav>
-  <button class="active" onclick="showTab('home')">🏠 홈</button>
-  <button onclick="showTab('education')">📚 교육 신청</button>
-  <button onclick="showTab('stats')">📊 이수 통계</button>
-  <button onclick="showTab('admin')">⚙️ 관리자</button>
+  <button class="active" onclick="showTab('home', this)">🏠 홈</button>
+  <button onclick="showTab('education', this)">📚 교육 신청</button>
+  <button onclick="showTab('stats', this)">📊 이수 통계</button>
+  <button onclick="showTab('admin', this)">⚙️ 관리자</button>
 </nav>
 
 <main>
@@ -174,7 +137,7 @@
       <div class="course-card" onclick="goToEducation('youth')">
         <div class="course-icon">🎒</div>
         <strong>청소년</strong>
-        <p>Youth (학교 교통안전)</p>
+        <p>학교 교통안전</p>
       </div>
       <div class="course-card" onclick="goToEducation('taxi')">
         <div class="course-icon">🚕</div>
@@ -186,26 +149,33 @@
         <strong>이륜차 운전자</strong>
         <p>Motorcycle Riders</p>
       </div>
+      <div class="course-card" onclick="goToEducation('military')">
+        <div class="course-icon">🪖</div>
+        <strong>군 장병/장교</strong>
+        <p>Military Personnel</p>
+      </div>
     </div>
   </div>
   <div class="card">
     <h2>📈 교육 현황 요약</h2>
-    <div class="stat-grid" id="home-stats"></div>
+    <div class="stat-grid" id="home-stats">
+      <div class="stat-box"><div class="stat-num">-</div><div class="stat-label">총 이수 신청</div></div>
+    </div>
   </div>
 </div>
 
 <!-- 교육 -->
 <div id="tab-education" class="section">
-  
-  <!-- Step 0: 과정 선택 -->
+
+  <!-- Step 0: 과정 선택 + 수강자 정보 -->
   <div id="step-select" class="card">
-    <h2>📚 교육 과정 선택</h2>
-    <p style="color:#555; margin-bottom:1rem; font-size:0.9rem;">수강할 교육 대상을 선택해 주세요.</p>
+    <h2>📚 교육 신청</h2>
+    <p style="color:#555; margin-bottom:1rem; font-size:0.9rem;">수강할 교육 대상을 선택하고 정보를 입력해 주세요.</p>
     <div class="course-grid">
       <div class="course-card" id="card-foreign" onclick="selectCourse('foreign')">
         <div class="course-icon">🌏</div>
         <strong>외국인 운전자</strong>
-        <p>Korean Traffic Safety<br>for Foreign Drivers</p>
+        <p>Foreign Drivers</p>
       </div>
       <div class="course-card" id="card-youth" onclick="selectCourse('youth')">
         <div class="course-icon">🎒</div>
@@ -222,11 +192,23 @@
         <strong>이륜차 운전자</strong>
         <p>이륜차 교통안전교육</p>
       </div>
+      <div class="course-card" id="card-military" onclick="selectCourse('military')">
+        <div class="course-icon">🪖</div>
+        <strong>군 장병/장교</strong>
+        <p>군 교통안전교육</p>
+      </div>
     </div>
-    <div style="margin-top:1.2rem;">
-      <div class="input-group">
-        <label>수강자 성명 *</label>
-        <input type="text" id="learner-name" placeholder="성명을 입력하세요" />
+
+    <div style="margin-top:1.5rem;">
+      <div class="input-row">
+        <div class="input-group">
+          <label>소속 * <span style="font-weight:400; color:#888;">(예: 육군 제00사단, 해군 제00함대)</span></label>
+          <input type="text" id="learner-unit" placeholder="소속을 입력하세요" />
+        </div>
+        <div class="input-group">
+          <label>성명 *</label>
+          <input type="text" id="learner-name" placeholder="성명을 입력하세요" />
+        </div>
       </div>
       <button class="btn btn-primary" onclick="startEducation()">교육 시작하기 →</button>
     </div>
@@ -301,30 +283,17 @@
   </div>
 </div>
 
-<!-- 통계 -->
+<!-- 통계 (로컬 캐시 기반) -->
 <div id="tab-stats" class="section">
   <div class="card">
-    <h2>📊 교육 이수 통계</h2>
+    <div class="alert alert-warning">
+      이수자 데이터는 Google Sheets에 실시간 저장됩니다. 아래는 이 기기에서 발생한 이수 기록입니다.
+    </div>
+    <h2>📊 이 기기 이수 현황</h2>
     <div class="stat-grid" id="stats-overview"></div>
   </div>
   <div class="card">
-    <h2>📋 과정별 이수 현황</h2>
-    <table class="stat-table" id="stats-table">
-      <thead>
-        <tr>
-          <th>교육 과정</th>
-          <th>총 이수자</th>
-          <th>사전평가 평균</th>
-          <th>사후평가 평균</th>
-          <th>향상도</th>
-          <th>이수율</th>
-        </tr>
-      </thead>
-      <tbody id="stats-tbody"></tbody>
-    </table>
-  </div>
-  <div class="card">
-    <h2>📋 이수자 명단</h2>
+    <h2>📋 이수자 명단 (이 기기)</h2>
     <div id="learner-list"></div>
   </div>
 </div>
@@ -333,192 +302,128 @@
 <div id="tab-admin" class="section">
   <div class="card">
     <h2>⚙️ 교육 영상 관리</h2>
-    <p style="color:#555; font-size:0.88rem; margin-bottom:1rem;">각 과정의 YouTube 영상 URL 또는 직접 업로드 파일을 설정합니다.</p>
-    <div class="admin-grid">
-      <div>
-        <div class="input-group">
-          <label>🌏 외국인 운전자 - YouTube URL</label>
-          <input type="text" id="video-foreign" placeholder="https://www.youtube.com/embed/..." />
-        </div>
-        <div class="input-group">
-          <label>🎒 청소년 - YouTube URL</label>
-          <input type="text" id="video-youth" placeholder="https://www.youtube.com/embed/..." />
-        </div>
+    <p style="color:#555; font-size:0.88rem; margin-bottom:1rem;">각 과정의 YouTube Embed URL을 설정합니다.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <div class="input-group">
+        <label>🌏 외국인 운전자</label>
+        <input type="text" id="video-foreign" placeholder="https://www.youtube.com/embed/..." />
       </div>
-      <div>
-        <div class="input-group">
-          <label>🚕 택시 운전자 - YouTube URL</label>
-          <input type="text" id="video-taxi" placeholder="https://www.youtube.com/embed/..." />
-        </div>
-        <div class="input-group">
-          <label>🏍️ 이륜차 운전자 - YouTube URL</label>
-          <input type="text" id="video-motorcycle" placeholder="https://www.youtube.com/embed/..." />
-        </div>
+      <div class="input-group">
+        <label>🎒 청소년</label>
+        <input type="text" id="video-youth" placeholder="https://www.youtube.com/embed/..." />
+      </div>
+      <div class="input-group">
+        <label>🚕 택시 운전자</label>
+        <input type="text" id="video-taxi" placeholder="https://www.youtube.com/embed/..." />
+      </div>
+      <div class="input-group">
+        <label>🏍️ 이륜차 운전자</label>
+        <input type="text" id="video-motorcycle" placeholder="https://www.youtube.com/embed/..." />
+      </div>
+      <div class="input-group">
+        <label>🪖 군 장병/장교</label>
+        <input type="text" id="video-military" placeholder="https://www.youtube.com/embed/..." />
       </div>
     </div>
     <button class="btn btn-primary" onclick="saveVideoSettings()">영상 설정 저장</button>
     <span id="save-msg" style="margin-left:1rem; color:#0a7c42; font-size:0.88rem;"></span>
   </div>
   <div class="card">
-    <h2>🗂️ 데이터 관리</h2>
-    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-      <button class="btn btn-secondary" onclick="exportData()">📥 데이터 내보내기 (JSON)</button>
-      <button class="btn btn-secondary" onclick="exportCSV()">📊 CSV 내보내기</button>
-      <button class="btn" style="background:#fde8e8; color:#8b1a1a;" onclick="clearData()">🗑️ 전체 데이터 초기화</button>
+    <h2>📊 Google Sheets 연동 안내</h2>
+    <div class="alert alert-success">
+      ✅ Google Sheets 연동이 활성화되어 있습니다.<br>
+      이수자 데이터는 자동으로 Sheets에 저장됩니다.
     </div>
+    <p style="font-size:0.9rem; color:#555; line-height:1.7;">
+      저장 항목: <strong>소속 / 성명 / 과정 / 사전점수 / 사후점수 / 이수여부 / 날짜 / 시간</strong><br>
+      Google Sheets에서 실시간으로 전체 이수자 현황을 확인하실 수 있습니다.
+    </p>
   </div>
 </div>
 
 </main>
 
+<!-- 전송 중 오버레이 -->
+<div class="sending-overlay" id="sending-overlay" style="display:none;">
+  <div class="sending-box">
+    <div class="spinner"></div>
+    <p style="font-weight:600; color:#003087;">이수 데이터 저장 중...</p>
+    <p style="font-size:0.85rem; color:#888; margin-top:0.3rem;">잠시만 기다려 주세요.</p>
+  </div>
+</div>
+
 <script>
-// ===== 데이터 구조 =====
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzUwo2uU2K6jl3MlXonT2PdEuZjtmjQ0CwrlMk7bCEbLVPMAQEGCVPR_8t85KkY8IWiwg/exec';
+
 const COURSES = {
   foreign: {
-    name: '외국인 운전자',
-    icon: '🌏',
-    badge: 'badge-blue',
+    name: '외국인 운전자', icon: '🌏', badge: 'badge-blue',
     desc: '외국인 운전자를 위한 한국 도로교통법 및 교통안전 기본 규칙 안내 교육입니다.',
     videoUrl: '',
     questions: [
-      {
-        q: '한국에서 신호등의 빨간불은 무엇을 의미합니까? (What does a red traffic light mean in Korea?)',
-        options: ['진행 (Go)', '정지 (Stop)', '주의 (Caution)', '유턴 허용 (U-turn allowed)'],
-        answer: 1
-      },
-      {
-        q: '한국의 제한속도 표지판에 "50"이 표시되어 있다면, 이는 무엇을 뜻합니까?',
-        options: ['최소 속도 50km/h', '최고 속도 50km/h', '제한 없음', '속도 주의 구간'],
-        answer: 1
-      },
-      {
-        q: '음주운전의 혈중알코올농도(BAC) 처벌 기준은?',
-        options: ['0.05% 이상', '0.03% 이상', '0.08% 이상', '0.10% 이상'],
-        answer: 1
-      },
-      {
-        q: '교차로에서 보행자 신호가 초록색일 때 운전자는?',
-        options: ['빠르게 통과한다', '경적을 울린다', '반드시 정지하고 양보한다', '서행하며 통과한다'],
-        answer: 2
-      },
-      {
-        q: '안전벨트 착용 의무에 대한 설명으로 옳은 것은?',
-        options: ['고속도로에서만 착용', '앞좌석만 착용', '전 좌석 착용 의무', '운전자만 착용'],
-        answer: 2
-      }
+      { q: '한국에서 신호등의 빨간불은 무엇을 의미합니까? (What does a red traffic light mean in Korea?)', options: ['진행 (Go)', '정지 (Stop)', '주의 (Caution)', '유턴 허용 (U-turn allowed)'], answer: 1 },
+      { q: '한국의 제한속도 표지판에 "50"이 표시되어 있다면, 이는 무엇을 뜻합니까?', options: ['최소 속도 50km/h', '최고 속도 50km/h', '제한 없음', '속도 주의 구간'], answer: 1 },
+      { q: '음주운전의 혈중알코올농도(BAC) 처벌 기준은?', options: ['0.05% 이상', '0.03% 이상', '0.08% 이상', '0.10% 이상'], answer: 1 },
+      { q: '교차로에서 보행자 신호가 초록색일 때 운전자는?', options: ['빠르게 통과한다', '경적을 울린다', '반드시 정지하고 양보한다', '서행하며 통과한다'], answer: 2 },
+      { q: '안전벨트 착용 의무에 대한 설명으로 옳은 것은?', options: ['고속도로에서만 착용', '앞좌석만 착용', '전 좌석 착용 의무', '운전자만 착용'], answer: 2 }
     ]
   },
   youth: {
-    name: '청소년',
-    icon: '🎒',
-    badge: 'badge-green',
+    name: '청소년', icon: '🎒', badge: 'badge-green',
     desc: '청소년의 보행 안전 및 자전거, 킥보드 등 개인형 이동수단(PM) 안전 이용 교육입니다.',
     videoUrl: '',
     questions: [
-      {
-        q: '횡단보도를 건널 때 올바른 행동은?',
-        options: ['뛰어서 빠르게 건넌다', '스마트폰을 보며 건넌다', '좌우를 살피고 손을 들고 건넌다', '신호를 무시하고 건넌다'],
-        answer: 2
-      },
-      {
-        q: '자전거를 탈 때 안전모(헬멧) 착용 의무 대상은?',
-        options: ['만 13세 미만만 의무', '고속도로에서만 의무', '모든 연령 의무', '선택 사항'],
-        answer: 2
-      },
-      {
-        q: '전동킥보드(PM) 운전에 필요한 최소 면허 종류는?',
-        options: ['면허 불필요', '원동기면허 이상', '1종 보통 이상', '2종 소형 이상'],
-        answer: 1
-      },
-      {
-        q: '학교 앞 스쿨존(어린이보호구역)에서의 제한속도는?',
-        options: ['60km/h', '50km/h', '30km/h', '20km/h'],
-        answer: 2
-      },
-      {
-        q: '야간 보행 시 안전을 높이는 방법은?',
-        options: ['어두운 옷을 입는다', '밝은 색 옷이나 반사 소재를 착용한다', '차도 옆에 붙어 걷는다', '음악을 크게 듣는다'],
-        answer: 1
-      }
+      { q: '횡단보도를 건널 때 올바른 행동은?', options: ['뛰어서 빠르게 건넌다', '스마트폰을 보며 건넌다', '좌우를 살피고 손을 들고 건넌다', '신호를 무시하고 건넌다'], answer: 2 },
+      { q: '자전거를 탈 때 안전모(헬멧) 착용 의무 대상은?', options: ['만 13세 미만만 의무', '고속도로에서만 의무', '모든 연령 의무', '선택 사항'], answer: 2 },
+      { q: '전동킥보드(PM) 운전에 필요한 최소 면허 종류는?', options: ['면허 불필요', '원동기면허 이상', '1종 보통 이상', '2종 소형 이상'], answer: 1 },
+      { q: '학교 앞 스쿨존(어린이보호구역)에서의 제한속도는?', options: ['60km/h', '50km/h', '30km/h', '20km/h'], answer: 2 },
+      { q: '야간 보행 시 안전을 높이는 방법은?', options: ['어두운 옷을 입는다', '밝은 색 옷이나 반사 소재를 착용한다', '차도 옆에 붙어 걷는다', '음악을 크게 듣는다'], answer: 1 }
     ]
   },
   taxi: {
-    name: '택시 운전자',
-    icon: '🚕',
-    badge: 'badge-orange',
+    name: '택시 운전자', icon: '🚕', badge: 'badge-orange',
     desc: '택시 운전자의 안전운행, 여객자동차운수사업법 준수 및 승객 보호 의무에 관한 교육입니다.',
     videoUrl: '',
     questions: [
-      {
-        q: '택시 운전자의 하루 최대 연속 운전 가능 시간은 (여객법 기준)?',
-        options: ['2시간', '3시간', '4시간', '6시간'],
-        answer: 2
-      },
-      {
-        q: '승객이 목적지 도착 전 하차를 요구할 경우 택시 운전자는?',
-        options: ['거부할 수 있다', '반드시 안전한 곳에 정차 후 하차시킨다', '요금이 정산되면 어디서든 정차한다', '경찰에 신고한다'],
-        answer: 1
-      },
-      {
-        q: '택시 운행 중 휴대전화 사용 가능 여부는?',
-        options: ['핸즈프리는 허용', '짧은 통화만 허용', '완전 금지', '신호 대기 중에는 허용'],
-        answer: 0
-      },
-      {
-        q: '택시 미터기 조작 또는 부당요금 징수 시 처벌은?',
-        options: ['경고 처분', '과태료 부과', '자격 정지 및 형사 처벌', '교육 이수 명령'],
-        answer: 2
-      },
-      {
-        q: '승객 탑승 전 반드시 확인해야 할 사항이 아닌 것은?',
-        options: ['차량 내부 청결', '미터기 정상 작동', '차량 라디오 채널', '안전벨트 정상 여부'],
-        answer: 2
-      }
+      { q: '택시 운전자의 하루 최대 연속 운전 가능 시간은 (여객법 기준)?', options: ['2시간', '3시간', '4시간', '6시간'], answer: 2 },
+      { q: '승객이 목적지 도착 전 하차를 요구할 경우 택시 운전자는?', options: ['거부할 수 있다', '반드시 안전한 곳에 정차 후 하차시킨다', '요금이 정산되면 어디서든 정차한다', '경찰에 신고한다'], answer: 1 },
+      { q: '택시 운행 중 휴대전화 사용 가능 여부는?', options: ['핸즈프리는 허용', '짧은 통화만 허용', '완전 금지', '신호 대기 중에는 허용'], answer: 0 },
+      { q: '택시 미터기 조작 또는 부당요금 징수 시 처벌은?', options: ['경고 처분', '과태료 부과', '자격 정지 및 형사 처벌', '교육 이수 명령'], answer: 2 },
+      { q: '승객 탑승 전 반드시 확인해야 할 사항이 아닌 것은?', options: ['차량 내부 청결', '미터기 정상 작동', '차량 라디오 채널', '안전벨트 정상 여부'], answer: 2 }
     ]
   },
   motorcycle: {
-    name: '이륜차 운전자',
-    icon: '🏍️',
-    badge: 'badge-purple',
+    name: '이륜차 운전자', icon: '🏍️', badge: 'badge-purple',
     desc: '이륜차 운전자의 안전장구 착용, 차선 준수, 교통법규 이해를 위한 교통안전교육입니다.',
     videoUrl: '',
     questions: [
-      {
-        q: '이륜차 운전자의 안전모(헬멧) 착용은?',
-        options: ['고속도로만 의무', '야간만 의무', '모든 도로에서 의무', '선택 사항'],
-        answer: 2
-      },
-      {
-        q: '이륜차의 차선 변경 시 올바른 방법은?',
-        options: ['방향지시등 없이 빠르게 변경', '방향지시등 신호 후 안전 확인 후 변경', '경적을 울리며 변경', '속도를 높여 빠르게 변경'],
-        answer: 1
-      },
-      {
-        q: '이륜차로 고속도로 주행이 허용되는 배기량 기준은?',
-        options: ['50cc 이상', '100cc 이상', '125cc 초과', '260cc 이상'],
-        answer: 2
-      },
-      {
-        q: '이륜차 운전 중 음주단속 기준(BAC)은 승용차와 비교하여?',
-        options: ['더 엄격하다', '동일하다 (0.03%)', '더 완화되어 있다', '이륜차는 단속하지 않는다'],
-        answer: 1
-      },
-      {
-        q: '이륜차 동승자가 없을 때 올바른 좌석 위치는?',
-        options: ['뒷좌석에 짐을 싣는다', '운전자 단독 탑승으로 주행한다', '동승자 없이 주행 불가', '앞좌석에 별도 탑승 가능'],
-        answer: 1
-      }
+      { q: '이륜차 운전자의 안전모(헬멧) 착용은?', options: ['고속도로만 의무', '야간만 의무', '모든 도로에서 의무', '선택 사항'], answer: 2 },
+      { q: '이륜차의 차선 변경 시 올바른 방법은?', options: ['방향지시등 없이 빠르게 변경', '방향지시등 신호 후 안전 확인 후 변경', '경적을 울리며 변경', '속도를 높여 빠르게 변경'], answer: 1 },
+      { q: '이륜차로 고속도로 주행이 허용되는 배기량 기준은?', options: ['50cc 이상', '100cc 이상', '125cc 초과', '260cc 이상'], answer: 2 },
+      { q: '이륜차 운전 중 음주단속 기준(BAC)은 승용차와 비교하여?', options: ['더 엄격하다', '동일하다 (0.03%)', '더 완화되어 있다', '이륜차는 단속하지 않는다'], answer: 1 },
+      { q: '이륜차 동승자가 없을 때 올바른 탑승 방법은?', options: ['뒷좌석에 짐을 싣는다', '운전자 단독 탑승으로 주행한다', '동승자 없이 주행 불가', '앞좌석에 별도 탑승 가능'], answer: 1 }
+    ]
+  },
+  military: {
+    name: '군 장병/장교', icon: '🪖', badge: 'badge-blue',
+    desc: '군 장병 및 장교 대상 군용차량 안전운행, 도로교통법 준수 및 사고 예방 교육입니다.',
+    videoUrl: '',
+    questions: [
+      { q: '군용차량 운행 시 민간 도로교통법 적용 여부는?', options: ['적용되지 않는다', '고속도로에서만 적용', '민간 도로에서는 동일하게 적용', '작전 중에는 면제'], answer: 2 },
+      { q: '군용차량 운전자의 음주운전 기준(BAC)은?', options: ['민간 기준과 동일 (0.03%)', '군 기준이 더 엄격 (0.00%)', '작전 상황에서는 예외', '사령관 재량으로 결정'], answer: 0 },
+      { q: '야간 군용차량 운행 시 반드시 켜야 하는 것은?', options: ['비상등만', '전조등 및 미등', '실내등', '경광등'], answer: 1 },
+      { q: '군용차량 운행 중 교통사고 발생 시 첫 번째 조치는?', options: ['즉시 현장을 떠난다', '상급자에게만 보고한다', '부상자 구호 및 경찰 신고', '차량 이동 후 보고'], answer: 2 },
+      { q: '안전벨트 미착용 시 군 운전병에게 적용되는 처벌은?', options: ['없음', '도로교통법 과태료만', '도로교통법 + 군 징계 동시 적용 가능', '구두 경고만'], answer: 2 }
     ]
   }
 };
 
-// State
 let currentCourse = null;
 let currentLearner = '';
+let currentUnit = '';
 let preScore = 0;
 let postScore = 0;
 
-// Load data
 function getData() {
   return JSON.parse(localStorage.getItem('koroad_edu_data') || '{"completions":[],"videoSettings":{}}');
 }
@@ -526,59 +431,60 @@ function saveData(d) {
   localStorage.setItem('koroad_edu_data', JSON.stringify(d));
 }
 
-// Tab navigation
-function showTab(tab) {
+function showTab(tab, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
-  event.target.classList.add('active');
+  if (btn) btn.classList.add('active');
   if (tab === 'stats') renderStats();
   if (tab === 'home') renderHomeStats();
   if (tab === 'admin') loadAdminSettings();
 }
 
 function goToEducation(course) {
-  showTab('education');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-education').classList.add('active');
   document.querySelectorAll('nav button')[1].classList.add('active');
-  document.querySelectorAll('nav button')[0].classList.remove('active');
   selectCourse(course);
+  showStep('select');
 }
 
-// Course selection
 function selectCourse(id) {
   currentCourse = id;
-  document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.course-card[id^="card-"]').forEach(c => c.classList.remove('selected'));
   const card = document.getElementById('card-' + id);
   if (card) card.classList.add('selected');
 }
 
 function startEducation() {
   if (!currentCourse) { alert('교육 과정을 선택해 주세요.'); return; }
+  const unit = document.getElementById('learner-unit').value.trim();
   const name = document.getElementById('learner-name').value.trim();
-  if (!name) { alert('수강자 성명을 입력해 주세요.'); return; }
+  if (!unit) { alert('소속을 입력해 주세요.'); return; }
+  if (!name) { alert('성명을 입력해 주세요.'); return; }
+  currentUnit = unit;
   currentLearner = name;
   showStep('pretest');
   renderQuiz('pretest');
 }
 
-// Step management
 function showStep(step) {
   ['select','pretest','video','posttest','result'].forEach(s => {
     document.getElementById('step-' + s).style.display = s === step ? 'block' : 'none';
   });
+  window.scrollTo(0, 0);
 }
 
-// Render quiz
 function renderQuiz(type) {
   const course = COURSES[currentCourse];
   const container = document.getElementById(type + '-questions');
-  const info = document.getElementById(type === 'pretest' ? 'pretest-info' : null);
-  if (info) info.textContent = `[${course.name}] ${course.desc}`;
-  
+  if (type === 'pretest') {
+    document.getElementById('pretest-info').textContent = `[${course.name}] ${course.desc}`;
+  }
   let html = '';
   course.questions.forEach((q, i) => {
-    html += `<div class="quiz-question">
-      <p>${i+1}. ${q.q}</p>`;
+    html += `<div class="quiz-question"><p>${i+1}. ${q.q}</p>`;
     q.options.forEach((opt, j) => {
       html += `<div class="quiz-option">
         <input type="radio" name="${type}_q${i}" id="${type}_q${i}_${j}" value="${j}">
@@ -591,9 +497,8 @@ function renderQuiz(type) {
 }
 
 function calcScore(prefix) {
-  const course = COURSES[currentCourse];
   let score = 0;
-  course.questions.forEach((q, i) => {
+  COURSES[currentCourse].questions.forEach((q, i) => {
     const sel = document.querySelector(`input[name="${prefix}_q${i}"]:checked`);
     if (sel && parseInt(sel.value) === q.answer) score++;
   });
@@ -601,8 +506,8 @@ function calcScore(prefix) {
 }
 
 function submitPretest() {
-  const course = COURSES[currentCourse];
-  for (let i = 0; i < course.questions.length; i++) {
+  const total = COURSES[currentCourse].questions.length;
+  for (let i = 0; i < total; i++) {
     if (!document.querySelector(`input[name="pretest_q${i}"]:checked`)) {
       alert(`${i+1}번 문항에 답을 선택해 주세요.`); return;
     }
@@ -616,20 +521,12 @@ function renderVideo() {
   const course = COURSES[currentCourse];
   const data = getData();
   const url = (data.videoSettings && data.videoSettings[currentCourse]) || course.videoUrl;
-  
   const videoArea = document.getElementById('video-area');
   if (url) {
-    let embedUrl = url;
-    if (url.includes('youtube.com/watch?v=')) {
-      embedUrl = url.replace('watch?v=', 'embed/');
-    }
+    let embedUrl = url.includes('watch?v=') ? url.replace('watch?v=', 'embed/') : url;
     videoArea.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
   } else {
-    videoArea.innerHTML = `<div class="video-placeholder">
-      <div style="font-size:3rem;">🎬</div>
-      <p><strong>영상이 등록되지 않았습니다</strong></p>
-      <p>관리자 메뉴에서 YouTube URL을 등록해 주세요.</p>
-    </div>`;
+    videoArea.innerHTML = `<div class="video-placeholder"><div style="font-size:3rem;">🎬</div><p><strong>영상이 등록되지 않았습니다</strong></p><p>관리자 메뉴에서 YouTube URL을 등록해 주세요.</p></div>`;
   }
   document.getElementById('course-desc').innerHTML = `<strong>${course.icon} ${course.name} 교육 안내</strong><br><span style="color:#555;font-size:0.9rem;">${course.desc}</span>`;
 }
@@ -640,27 +537,58 @@ function startPosttest() {
 }
 
 function submitPosttest() {
-  const course = COURSES[currentCourse];
-  for (let i = 0; i < course.questions.length; i++) {
+  const total = COURSES[currentCourse].questions.length;
+  for (let i = 0; i < total; i++) {
     if (!document.querySelector(`input[name="posttest_q${i}"]:checked`)) {
       alert(`${i+1}번 문항에 답을 선택해 주세요.`); return;
     }
   }
   postScore = calcScore('posttest');
-  saveCompletion();
-  showStep('result');
-  renderResult();
+  sendToSheets().then(() => {
+    saveLocalCompletion();
+    showStep('result');
+    renderResult();
+  });
 }
 
-function saveCompletion() {
-  const data = getData();
-  data.completions.push({
-    id: Date.now(),
+async function sendToSheets() {
+  document.getElementById('sending-overlay').style.display = 'flex';
+  const now = new Date();
+  const payload = {
+    unit: currentUnit,
     name: currentLearner,
     course: currentCourse,
     courseName: COURSES[currentCourse].name,
     preScore: preScore,
     postScore: postScore,
+    total: COURSES[currentCourse].questions.length,
+    passed: postScore >= 3,
+    date: now.toLocaleDateString('ko-KR'),
+    time: now.toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'})
+  };
+  try {
+    await fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.warn('Sheets 전송 오류:', e);
+  } finally {
+    document.getElementById('sending-overlay').style.display = 'none';
+  }
+}
+
+function saveLocalCompletion() {
+  const data = getData();
+  data.completions.push({
+    id: Date.now(),
+    unit: currentUnit,
+    name: currentLearner,
+    course: currentCourse,
+    courseName: COURSES[currentCourse].name,
+    preScore, postScore,
     total: COURSES[currentCourse].questions.length,
     passed: postScore >= 3,
     date: new Date().toLocaleDateString('ko-KR')
@@ -672,25 +600,19 @@ function renderResult() {
   const total = COURSES[currentCourse].questions.length;
   const passed = postScore >= 3;
   const improvement = postScore - preScore;
-  
   let html = `
   <div class="score-card">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; max-width:400px; margin:0 auto 1.5rem;">
-      <div class="stat-box">
-        <div class="stat-num">${preScore}/${total}</div>
-        <div class="stat-label">사전평가 점수</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" style="color:${passed?'#0a7c42':'#c0392b'}">${postScore}/${total}</div>
-        <div class="stat-label">사후평가 점수</div>
-      </div>
+      <div class="stat-box"><div class="stat-num">${preScore}/${total}</div><div class="stat-label">사전평가 점수</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:${passed?'#0a7c42':'#c0392b'}">${postScore}/${total}</div><div class="stat-label">사후평가 점수</div></div>
     </div>
     <div class="score-big">${Math.round(postScore/total*100)}점</div>
     <div class="score-label">사후 평가 정답률</div>
-    <div style="margin:0.5rem 0; font-size:0.9rem; color:#555;">
-      향상도: ${improvement >= 0 ? '+' : ''}${improvement}문항 (${improvement >= 0 ? '📈' : '📉'})
+    <div style="margin:0.5rem 0; font-size:0.9rem; color:#555;">향상도: ${improvement>=0?'+':''}${improvement}문항 (${improvement>=0?'📈':'📉'})</div>
+    <div class="${passed?'score-pass':'score-fail'}">${passed?'✅ 이수 완료':'❌ 미이수 (재교육 권장)'}</div>
+    <div class="alert alert-success" style="margin-top:1rem; text-align:left;">
+      ✅ 이수 데이터가 관리자 Google Sheets에 자동 저장되었습니다.
     </div>
-    <div class="${passed ? 'score-pass' : 'score-fail'}">${passed ? '✅ 이수 완료' : '❌ 미이수 (재교육 권장)'}</div>
   </div>`;
 
   if (passed) {
@@ -700,14 +622,14 @@ function renderResult() {
       <div class="cert-badge">🏅</div>
       <h2>교통안전교육 이수증</h2>
       <p>Certificate of Completion – Traffic Safety Education</p>
+      <div class="cert-unit">${currentUnit}</div>
       <div class="cert-name">${currentLearner}</div>
-      <p>위 사람은 <strong>${COURSES[currentCourse].name} 교통안전교육</strong>을 이수하였기에<br>
-      이 증서를 수여합니다.</p>
+      <p>위 사람은 <strong>${COURSES[currentCourse].name} 교통안전교육</strong>을<br>성실히 이수하였기에 이 증서를 수여합니다.</p>
       <p style="margin-top:1rem; font-size:0.85rem; color:#888;">이수일: ${today} | 주관: 한국도로교통공단(KoROAD)</p>
     </div>
-    <div style="margin-top:1rem; display:flex; gap:0.8rem; flex-wrap:wrap;">
+    <div style="margin-top:1rem; display:flex; gap:0.8rem; flex-wrap:wrap;" class="no-print">
       <button class="btn btn-primary" onclick="window.print()">🖨️ 이수증 출력</button>
-      <button class="btn btn-secondary no-print" onclick="resetEducation()">↩ 처음으로</button>
+      <button class="btn btn-secondary" onclick="resetEducation()">↩ 처음으로</button>
     </div>`;
   } else {
     html += `
@@ -723,67 +645,41 @@ function renderResult() {
 }
 
 function resetEducation() {
-  currentCourse = null; currentLearner = ''; preScore = 0; postScore = 0;
+  currentCourse = null; currentLearner = ''; currentUnit = ''; preScore = 0; postScore = 0;
   document.getElementById('learner-name').value = '';
-  document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('learner-unit').value = '';
+  document.querySelectorAll('.course-card[id^="card-"]').forEach(c => c.classList.remove('selected'));
   showStep('select');
 }
 
-// Stats
 function renderStats() {
   const data = getData();
-  const completions = data.completions || [];
-  
-  const total = completions.length;
-  const passed = completions.filter(c => c.passed).length;
-  const avgPre = total ? (completions.reduce((s,c) => s + c.preScore/c.total*100, 0)/total).toFixed(1) : 0;
-  const avgPost = total ? (completions.reduce((s,c) => s + c.postScore/c.total*100, 0)/total).toFixed(1) : 0;
-  
+  const c = data.completions || [];
+  const passed = c.filter(x => x.passed).length;
   document.getElementById('stats-overview').innerHTML = `
-    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">총 이수자</div></div>
+    <div class="stat-box"><div class="stat-num">${c.length}</div><div class="stat-label">총 신청</div></div>
     <div class="stat-box"><div class="stat-num" style="color:#0a7c42">${passed}</div><div class="stat-label">이수 완료</div></div>
-    <div class="stat-box"><div class="stat-num">${avgPre}%</div><div class="stat-label">사전평가 평균</div></div>
-    <div class="stat-box"><div class="stat-num">${avgPost}%</div><div class="stat-label">사후평가 평균</div></div>
+    <div class="stat-box"><div class="stat-num">${c.length - passed}</div><div class="stat-label">미이수</div></div>
   `;
-  
-  const courseIds = ['foreign','youth','taxi','motorcycle'];
-  let tbody = '';
-  courseIds.forEach(id => {
-    const list = completions.filter(c => c.course === id);
-    const n = list.length;
-    const pass = list.filter(c => c.passed).length;
-    const pre = n ? (list.reduce((s,c) => s+c.preScore/c.total*100,0)/n).toFixed(1) : '-';
-    const post = n ? (list.reduce((s,c) => s+c.postScore/c.total*100,0)/n).toFixed(1) : '-';
-    const imp = n ? (list.reduce((s,c) => s+(c.postScore-c.preScore),0)/n).toFixed(1) : '-';
-    tbody += `<tr>
-      <td>${COURSES[id].icon} ${COURSES[id].name}</td>
-      <td><span class="badge ${COURSES[id].badge}">${n}명</span></td>
-      <td>${pre}%</td>
-      <td>${post}%</td>
-      <td>${imp !== '-' ? (imp >= 0 ? '+' : '') + imp + '문' : '-'}</td>
-      <td>${n ? Math.round(pass/n*100) + '%' : '-'}</td>
-    </tr>`;
-  });
-  document.getElementById('stats-tbody').innerHTML = tbody || '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:1.5rem;">등록된 데이터가 없습니다.</td></tr>';
-
-  let listHtml = '';
-  if (completions.length === 0) {
-    listHtml = '<p style="color:#aaa; text-align:center; padding:1.5rem;">이수자 데이터가 없습니다.</p>';
+  let html = '';
+  if (c.length === 0) {
+    html = '<p style="color:#aaa; text-align:center; padding:1.5rem;">이수자 데이터가 없습니다.</p>';
   } else {
-    listHtml = `<table class="stat-table"><thead><tr><th>이름</th><th>과정</th><th>사전</th><th>사후</th><th>결과</th><th>날짜</th></tr></thead><tbody>`;
-    [...completions].reverse().forEach(c => {
-      listHtml += `<tr>
-        <td>${c.name}</td>
-        <td>${COURSES[c.course]?.icon || ''} ${c.courseName}</td>
-        <td>${c.preScore}/${c.total}</td>
-        <td>${c.postScore}/${c.total}</td>
-        <td>${c.passed ? '<span class="badge badge-green">이수</span>' : '<span class="badge" style="background:#fde8e8;color:#8b1a1a;">미이수</span>'}</td>
-        <td>${c.date}</td>
+    html = `<table class="stat-table"><thead><tr><th>소속</th><th>이름</th><th>과정</th><th>사전</th><th>사후</th><th>결과</th><th>날짜</th></tr></thead><tbody>`;
+    [...c].reverse().forEach(r => {
+      html += `<tr>
+        <td>${r.unit || '-'}</td>
+        <td>${r.name}</td>
+        <td>${COURSES[r.course]?.icon || ''} ${r.courseName}</td>
+        <td>${r.preScore}/${r.total}</td>
+        <td>${r.postScore}/${r.total}</td>
+        <td>${r.passed ? '<span class="badge badge-green">이수</span>' : '<span class="badge badge-red">미이수</span>'}</td>
+        <td>${r.date}</td>
       </tr>`;
     });
-    listHtml += '</tbody></table>';
+    html += '</tbody></table>';
   }
-  document.getElementById('learner-list').innerHTML = listHtml;
+  document.getElementById('learner-list').innerHTML = html;
 }
 
 function renderHomeStats() {
@@ -792,16 +688,15 @@ function renderHomeStats() {
   document.getElementById('home-stats').innerHTML = `
     <div class="stat-box"><div class="stat-num">${c.length}</div><div class="stat-label">총 이수 신청</div></div>
     <div class="stat-box"><div class="stat-num" style="color:#0a7c42">${c.filter(x=>x.passed).length}</div><div class="stat-label">이수 완료</div></div>
+    <div class="stat-box"><div class="stat-num">${c.filter(x=>x.course==='military').length}</div><div class="stat-label">군 장병/장교</div></div>
     <div class="stat-box"><div class="stat-num">${c.filter(x=>x.course==='foreign').length}</div><div class="stat-label">외국인</div></div>
-    <div class="stat-box"><div class="stat-num">${c.filter(x=>x.course==='youth').length}</div><div class="stat-label">청소년</div></div>
   `;
 }
 
-// Admin
 function loadAdminSettings() {
   const data = getData();
   const vs = data.videoSettings || {};
-  ['foreign','youth','taxi','motorcycle'].forEach(id => {
+  ['foreign','youth','taxi','motorcycle','military'].forEach(id => {
     document.getElementById('video-' + id).value = vs[id] || '';
   });
 }
@@ -809,7 +704,7 @@ function loadAdminSettings() {
 function saveVideoSettings() {
   const data = getData();
   data.videoSettings = {};
-  ['foreign','youth','taxi','motorcycle'].forEach(id => {
+  ['foreign','youth','taxi','motorcycle','military'].forEach(id => {
     data.videoSettings[id] = document.getElementById('video-' + id).value.trim();
   });
   saveData(data);
@@ -818,37 +713,6 @@ function saveVideoSettings() {
   setTimeout(() => msg.textContent = '', 2500);
 }
 
-function exportData() {
-  const data = getData();
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'koroad_edu_data_' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-}
-
-function exportCSV() {
-  const data = getData();
-  const rows = [['이름','과정','사전점수','사전총점','사후점수','사후총점','이수여부','날짜']];
-  (data.completions || []).forEach(c => {
-    rows.push([c.name, c.courseName, c.preScore, c.total, c.postScore, c.total, c.passed?'이수':'미이수', c.date]);
-  });
-  const csv = rows.map(r => r.join(',')).join('\n');
-  const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'koroad_completions_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-}
-
-function clearData() {
-  if (confirm('모든 이수 데이터를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.')) {
-    const data = getData();
-    data.completions = [];
-    saveData(data);
-    alert('데이터가 초기화되었습니다.');
-  }
-}
-
-// Init
 renderHomeStats();
 </script>
 </body>
